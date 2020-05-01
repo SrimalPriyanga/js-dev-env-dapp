@@ -48,6 +48,10 @@ export default {
         minifyURLs: true,
       },
       inject: true,
+      // Properties you define here are available in index.html
+      // using htmlWebpackPlugin.options.varName
+      // TODO: add track js token to configure error login
+      trackJSToken: ''
     }),
   ],
   module: {
@@ -57,3 +61,5 @@ export default {
     ],
   },
 };
+
+// TODO: CSS minify and separate bundling
