@@ -1,10 +1,8 @@
 import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 
-export default {
-  debug: true,
+module.exports = {
   devtool: "inline-source-map",
-  noInfo: false,
   entry: [path.resolve(__dirname, "src/index")],
   target: "web",
   output: {
@@ -20,9 +18,12 @@ export default {
     }),
   ],
   module: {
-    loaders: [
+    rules: [
       { test: /\.js$/, exclude: /node_modules/, loaders: ["babel"] },
-      { test: /\.css$/, loaders: ["style", "css"] },
+      { test: /\.css$/i, use: ["style-loader", "css-loader"] },
     ],
+  },
+  devServer: {
+    noInfo: true, // only errors & warns on hot reload
   },
 };
