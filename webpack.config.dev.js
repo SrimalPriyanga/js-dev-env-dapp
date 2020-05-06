@@ -1,7 +1,9 @@
 import path from "path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 module.exports = {
+  mode: "development",
   devtool: "inline-source-map",
   entry: [path.resolve(__dirname, "src/index")],
   target: "web",
@@ -16,11 +18,32 @@ module.exports = {
       template: "src/index.html",
       inject: true,
     }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // all options are optional
+      filename: "[name].css",
+      chunkFilename: "[id].css",
+      ignoreOrder: false, // Enable to remove warnings about conflicting order
+    }),
   ],
   module: {
     rules: [
-      { test: /\.js$/, exclude: /node_modules/, loaders: ["babel"] },
-      { test: /\.css$/i, use: ["style-loader", "css-loader"] },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              // you can specify a publicPath here
+              // by default it uses publicPath in webpackOptions.output
+              publicPath: "./dist",
+              hmr: process.env.NODE_ENV === "development",
+            },
+          },
+          "css-loader",
+        ],
+      },
+      { test: /\.js$/, exclude: /node_modules/, loader: ["babel-loader"] },
     ],
   },
   devServer: {

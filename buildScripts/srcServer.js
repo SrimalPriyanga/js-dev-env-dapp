@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import open from "open";
 import webpack from "webpack";
+// eslint-disable-next-line import/default
 import config from "../webpack.config.dev";
 
 const port = 3000;

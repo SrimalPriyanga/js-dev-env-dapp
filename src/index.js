@@ -1,8 +1,9 @@
 import { getUsers } from "./api/userApi";
+import "./index.css";
 
 getUsers().then((result) => {
   let userBody = "";
-  
+
   result.forEach((user) => {
     userBody += `
       <tr>
