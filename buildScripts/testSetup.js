@@ -4,4 +4,4 @@
 // require.extensions(".css") = function () {};
 
 // Register babel to transpile before test run
-require("babel-register")();
+require("@babel/register")();
