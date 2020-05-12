@@ -1,5 +1,6 @@
 import { getUsers } from "./api/userApi";
-import "./index.css";
+// import "./index.css";
+// import "./index.scss";
 
 getUsers().then((result) => {
   let userBody = "";

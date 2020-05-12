@@ -29,7 +29,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
+        test: /\.s[ac]ss$/i,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
@@ -40,8 +40,9 @@ module.exports = {
               hmr: process.env.NODE_ENV === "development",
             },
           },
-          "style-loader",
-          "css-loader",
+          "style-loader", // injects style into DOM
+          "css-loader", // turns CSS into JS
+          "sass-loader", // turns SCSS into CSS
         ],
       },
       { test: /\.js$/, exclude: /node_modules/, loader: ["babel-loader"] },
