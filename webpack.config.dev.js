@@ -17,32 +17,21 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "src/index.html",
       inject: true,
-    }),
-    new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // all options are optional
-      filename: "[name].css",
-      chunkFilename: "[id].css",
-      ignoreOrder: false, // Enable to remove warnings about conflicting order
-    }),
+    })
   ],
   module: {
     rules: [
       {
         test: /\.s[ac]ss$/i,
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              // you can specify a publicPath here
-              // by default it uses publicPath in webpackOptions.output
-              publicPath: "./dist",
-              hmr: process.env.NODE_ENV === "development",
-            },
-          },
           "style-loader", // injects style into DOM
           "css-loader", // turns CSS into JS
-          "sass-loader", // turns SCSS into CSS
+          {
+            loader: "sass-loader", // turns SCSS into CSS
+            options: {
+              implementation: require("sass"), // Select `dart-sass > sass` or `node-sass > node-sass`
+            },
+          },
         ],
       },
       { test: /\.js$/, exclude: /node_modules/, loader: ["babel-loader"] },
