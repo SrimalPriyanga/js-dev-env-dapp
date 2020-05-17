@@ -1,24 +1,17 @@
 import path from "path";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import merge from "webpack-merge";
+// eslint-disable-next-line import/default
+import webpackCommon from "./webpack.common";
 
-module.exports = {
+module.exports = merge(webpackCommon, {
   mode: "development",
   devtool: "inline-source-map",
-  entry: [path.resolve(__dirname, "src/index")],
-  target: "web",
   output: {
     path: path.resolve(__dirname, "src"),
     publicPath: "/",
     filename: "bundle.js",
   },
-  plugins: [
-    // Create HTML file that includes reference to bundled JS.
-    new HtmlWebpackPlugin({
-      template: "src/index.html",
-      inject: true,
-    })
-  ],
+  plugins: [],
   module: {
     rules: [
       {
@@ -34,10 +27,9 @@ module.exports = {
           },
         ],
       },
-      { test: /\.js$/, exclude: /node_modules/, loader: ["babel-loader"] },
     ],
   },
   devServer: {
     noInfo: true, // only errors & warns on hot reload
   },
-};
+});
